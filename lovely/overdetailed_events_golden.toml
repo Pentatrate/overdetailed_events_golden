@@ -1,0 +1,54 @@
+[manifest]
+dump_lua = true
+priority = 0
+version = "1.0.0"
+
+# Insert new sprites ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
+# Penta: Wonder why Random22 did this the copy-paste way instead of this **simple** for-loop :skull:
+# Penta: Btw that was the only Random22 code and i straight up deleted it, Random22 officially never wrote any code that survived :skull:
+
+# Penta: Looks like it is no longer simple lol
+# Penta: See code/sprites.lua for an explanation for frequently used variables
+[[patches]]
+[patches.copy]
+position = "prepend"
+sources = ["code/sprites.lua"]
+target = "preload/sprites.lua"
+
+[[patches]]
+[patches.pattern]
+match_indent = true
+pattern = "return sprites"
+payload = "doOverdetailedEventsGolden(sprites)"
+position = "before"
+target = "preload/sprites.lua"
+
+# Link up sprites ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
+[[patches]]
+[patches.copy]
+position = "prepend"
+sources = ["code/GameManager.lua"]
+target = "obj/GameManager.lua"
+
+[[patches]]
+[patches.pattern]
+match_indent = true
+pattern = "local eType = ''"
+payload = "doOverdetailedEventsGolden(v, info, editorDraw)"
+position = "before"
+target = "obj/GameManager.lua"
+
+# Set sprites according to configs ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
+[[patches]]
+[patches.copy]
+position = "prepend"
+sources = ["code/main.lua"]
+target = "main.lua"
+
+[[patches]]
+[patches.pattern]
+match_indent = true
+pattern = "cs:init()"
+payload = "doOverdetailedEventsGolden()"
+position = "before"
+target = "main.lua"

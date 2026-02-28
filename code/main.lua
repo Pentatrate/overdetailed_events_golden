@@ -88,6 +88,12 @@ local function doOverdetailedEventsGolden()
 
 			love.graphics.setColor(1, 1, 1, 1)
 			drawSprite(event, dark, pos, event.enable ~= nil and event.var and event.var ~= "" and (event.enable and "on" or "off"))
+		end,
+		hom = function(event, dark)
+			local pos = cs:getPosition(event.angle, event.time)
+
+			love.graphics.setColor(1, 1, 1, 1)
+			drawSprite(event, dark, pos, event.enable == false and "off")
 		end
 		--[[ outline = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)

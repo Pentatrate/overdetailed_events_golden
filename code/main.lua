@@ -94,6 +94,21 @@ local function doOverdetailedEventsGolden()
 
 			love.graphics.setColor(1, 1, 1, 1)
 			drawSprite(event, dark, pos, event.enable == false and "off")
+		end,
+		forcePlayerSprite = function(event, dark)
+			local pos = cs:getPosition(event.angle, event.time)
+
+			local index = event.spriteName or "custom"
+
+			if index then
+				index = ({ [""] = "icon", ["><"] = "eyesclosed", [":3"] = "colonthree" })[index] or index
+				if not ({ icon = true, idle = true, happy = true, miss = true, angry = true, none = true, eyesclosed = true, colonthree = true, custom = true })[index] then
+					index = "custom"
+				end
+			end
+
+			love.graphics.setColor(1, 1, 1, 1)
+			drawSprite(event, dark, pos, index)
 		end
 		--[[ outline = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
@@ -156,8 +171,11 @@ local function doOverdetailedEventsGolden()
 	-- check for invalid, unused data
 	for i, theme in ipairs(sprites.editor.overdetailed.themes) do
 		if theme ~= "original" then
-			for name, _ in pairs(sprites.editor.overdetailed[theme]) do -- check for overdetailed sprite not used ingame
-				if not sprites.editor.overdetailed.category[name] and not (({ ["on_"] = true })[name:sub(1, 3)] and sprites.editor.overdetailed.category[name:sub(4)]) and not (({ ["off_"] = true })[name:sub(1, 4)] and sprites.editor.overdetailed.category[name:sub(5)]) and not (({ ["icon_"] = true })[name:sub(1, 5)] and sprites.editor.overdetailed.category[name:sub(6)]) then
+			---@diagnostic disable-next-line: unused-function
+			local function checkSpriteUnused(name)
+				if sprites.editor.overdetailed.category[name] then return end
+
+				local function spriteWarn()
 					local maybe
 					if sprites.editor.overdetailed.map2[name] and #sprites.editor.overdetailed.map2[name] == 1 then
 						maybe = sprites.editor.overdetailed.map2[name][1]
@@ -172,6 +190,32 @@ local function doOverdetailedEventsGolden()
 					end
 					print("[overdetailed_events_golden]\t\tUNUSED " .. theme .. " SPRITE " .. name .. (maybe and ". DID YOU MISNAME " .. maybe .. "?" or ""))
 				end
+
+				local index = name:find("_")
+				if not index then spriteWarn() return end
+
+				local spriteFunctions = {
+					icon = { setColor = true, setBgColor = true, setBoolean = true, hom = true, forcePlayerSprite = true },
+					on = { setBoolean = true },
+					off = { setBoolean = true, hom = true },
+					idle = { forcePlayerSprite = true },
+					happy = { forcePlayerSprite = true },
+					miss = { forcePlayerSprite = true },
+					angry = { forcePlayerSprite = true },
+					none = { forcePlayerSprite = true },
+					eyesclosed = { forcePlayerSprite = true },
+					colonthree = { forcePlayerSprite = true },
+					custom = { forcePlayerSprite = true }
+				}
+				spriteFunctions = spriteFunctions[name:sub(1, index - 1)]
+				if not spriteFunctions then spriteWarn() return end
+
+				if spriteFunctions[name:sub(index + 1)] and sprites.editor.overdetailed.category[name:sub(index + 1)] then return end
+
+				spriteWarn()
+			end
+			for name, _ in pairs(sprites.editor.overdetailed[theme]) do -- check for overdetailed sprite not used ingame
+				checkSpriteUnused(name)
 			end
 			if sprites.editor.overdetailed.complete[i] then
 				for name, _ in pairs(sprites.editor.overdetailed.category) do -- check for a missing overdetailed sprites for an event

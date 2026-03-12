@@ -1,3 +1,15 @@
+if not (sprites.editor.overdetailed and sprites.editor.overdetailed.themes) then
+	if mod.enabled then
+		imgui.Text("Restart to enable mod")
+	else
+		imgui.Text("Mod disabled")
+	end
+	return
+elseif not mod.enabled then
+	imgui.Text("Restart to disable mod")
+	imgui.Separator()
+end
+
 local changed = false
 
 -- helper functions for ImGui

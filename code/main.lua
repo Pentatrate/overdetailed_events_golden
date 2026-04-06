@@ -191,6 +191,7 @@ local function doOverdetailedEventsGolden()
 			local function checkSpriteUnused(name)
 				if sprites.editor.overdetailed.category[name] then return end
 
+				---@diagnostic disable-next-line: unused-function
 				local function spriteWarn()
 					local maybe
 					if sprites.editor.overdetailed.map2[name] and #sprites.editor.overdetailed.map2[name] == 1 then
@@ -211,7 +212,7 @@ local function doOverdetailedEventsGolden()
 				if not index then spriteWarn() return end
 
 				local spriteFunctions = {
-					icon = { setColor = true, setBgColor = true, setBoolean = true, hom = true, forcePlayerSprite = true },
+					icon = { setColor = true, setBgColor = true, setBoolean = true, hom = true, forcePlayerSprite = true, bookmark = true },
 					on = { setBoolean = true },
 					off = { setBoolean = true, hom = true },
 					idle = { forcePlayerSprite = true },
@@ -221,7 +222,9 @@ local function doOverdetailedEventsGolden()
 					none = { forcePlayerSprite = true },
 					eyesclosed = { forcePlayerSprite = true },
 					colonthree = { forcePlayerSprite = true },
-					custom = { forcePlayerSprite = true }
+					custom = { forcePlayerSprite = true },
+					color = { bookmark = true },
+					nocolor = { bookmark = true }
 				}
 				spriteFunctions = spriteFunctions[name:sub(1, index - 1)]
 				if not spriteFunctions then spriteWarn() return end

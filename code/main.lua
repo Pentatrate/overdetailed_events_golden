@@ -109,7 +109,23 @@ local function doOverdetailedEventsGolden()
 
 			love.graphics.setColor(1, 1, 1, 1)
 			drawSprite(event, dark, pos, index)
-		end
+		end,
+		bookmark = function(event, dark)
+			local pos = cs:getPosition(event.angle, event.time)
+
+			local r, g, b = event.r or 0, event.g or 0, event.b or 0
+			local largest = math.max(r, g, b) / 255
+			if largest == 0 then
+				r, g, b = 255, 255, 255
+			else
+				r, g, b = r / largest, g / largest, b / largest
+			end
+			love.graphics.setColor(love.math.colorFromBytes(r, g, b, 255))
+			drawSprite(event, dark, pos, "color")
+
+			love.graphics.setColor(1, 1, 1)
+			drawSprite(event, dark, pos, "nocolor")
+		end,
 		--[[ outline = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
 

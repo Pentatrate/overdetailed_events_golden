@@ -70,6 +70,7 @@ local function doOverdetailedEventsGolden()
 			love.graphics.setColor(d, d, d, 1)
 			love.graphics.setFont(fonts.main)
 			drawText(pos, event.color or "#")
+			love.graphics.setColor(1, 1, 1, 1)
 		end,
 		setBgColor = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
@@ -82,6 +83,7 @@ local function doOverdetailedEventsGolden()
 			love.graphics.setFont(fonts.main)
 			drawText(pos, event.color or "#", 3, 3)
 			drawText(pos, event.voidColor or "#", -3, -3)
+			love.graphics.setColor(1, 1, 1, 1)
 		end,
 		setBoolean = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
@@ -136,6 +138,7 @@ local function doOverdetailedEventsGolden()
 			love.graphics.setColor(d, d, d, 1)
 			love.graphics.setFont(fonts.main)
 			drawText(pos, event.color or "#", -2, -2)
+			love.graphics.setColor(1, 1, 1, 1)
 		end
 		--[[ setJoystickColorEvent = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
@@ -152,6 +155,7 @@ local function doOverdetailedEventsGolden()
 
 			--love.graphics.setColor(1, 1, 1, 1)
 			--love.graphics.draw(sprites.editor.overdetailed.technical["icon_setColor"], pos[1], pos[2], 0, 1, 1, 8, 8)
+			love.graphics.setColor(1, 1, 1, 1)
 		end ]]
 	}
 	for name, f in pairs(eventFunctions) do

@@ -102,7 +102,7 @@ local function doOverdetailedEventsGolden()
 
 			if index then
 				index = ({ [""] = "icon", ["><"] = "eyesclosed", [":3"] = "colonthree" })[index] or index
-				if not ({ icon = true, idle = true, happy = true, miss = true, angry = true, none = true, eyesclosed = true, colonthree = true, custom = true })[index] then
+				if not ({ icon = true, idle = true, happy = true, miss = true, angry = true, none = true, eyesclosed = true, colonthree = true, custom = true, closed = true, halfclosed = true, xx = true, sad = true, unimpressed = true, dots = true, wink = true, spiral = true })[index] then
 					index = "custom"
 				end
 			end
@@ -126,17 +126,17 @@ local function doOverdetailedEventsGolden()
 			love.graphics.setColor(1, 1, 1)
 			drawSprite(event, dark, pos, "nocolor")
 		end,
-		--[[ outline = function(event, dark)
+		outline = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
 
 			love.graphics.setColor(1, 1, 1, 1)
-			drawSprite(event, dark, pos)
+			drawSprite(event, dark, pos, event.enable == false and "off")
 
 			local d = dark and 1 or 0
 			love.graphics.setColor(d, d, d, 1)
 			love.graphics.setFont(fonts.main)
-			drawText(pos, event.color or "#")
-		end ]]
+			drawText(pos, event.color or "#", -2, -2)
+		end
 		--[[ setJoystickColorEvent = function(event, dark)
 			local pos = cs:getPosition(event.angle, event.time)
 
@@ -212,9 +212,9 @@ local function doOverdetailedEventsGolden()
 				if not index then spriteWarn() return end
 
 				local spriteFunctions = {
-					icon = { setColor = true, setBgColor = true, setBoolean = true, hom = true, forcePlayerSprite = true, bookmark = true },
+					icon = { setColor = true, setBgColor = true, setBoolean = true, hom = true, forcePlayerSprite = true, bookmark = true, outline = true },
 					on = { setBoolean = true },
-					off = { setBoolean = true, hom = true },
+					off = { setBoolean = true, hom = true, outline = true },
 					idle = { forcePlayerSprite = true },
 					happy = { forcePlayerSprite = true },
 					miss = { forcePlayerSprite = true },
@@ -223,6 +223,14 @@ local function doOverdetailedEventsGolden()
 					eyesclosed = { forcePlayerSprite = true },
 					colonthree = { forcePlayerSprite = true },
 					custom = { forcePlayerSprite = true },
+					closed = { forcePlayerSprite = true },
+					halfclosed = { forcePlayerSprite = true },
+					xx = { forcePlayerSprite = true },
+					sad = { forcePlayerSprite = true },
+					unimpressed = { forcePlayerSprite = true },
+					dots = { forcePlayerSprite = true },
+					wink = { forcePlayerSprite = true },
+					spiral = { forcePlayerSprite = true },
 					color = { bookmark = true },
 					nocolor = { bookmark = true }
 				}

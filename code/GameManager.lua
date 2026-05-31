@@ -17,7 +17,7 @@ local function doOverdetailedEventsGolden(filePath, info, editorDraw)
 		for _, t in ipairs({ sprites.editor, sprites.note, sprites.editor.events }) do
 			for spriteName, sprite in pairs(t) do
 				if not sprites.editor.overdetailed.wontmake[spriteName] and sprites.editor.overdetailed.map2[spriteName] then
-					-- overriding: some events have an UNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite (see code/main.lua for the actual overriding)
+					-- overriding: some events have an UNNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite (see code/main.lua for the actual overriding)
 					if sprites.editor.overdetailed.overrideFunction[info.event] and spriteName == sprites.editor.overdetailed.overrideFunction[info.event] then
 						table.insert(sprites.editor.overdetailed.map2[spriteName], info.event)
 						sprites.editor.overdetailed.original[info.event] = sprite

@@ -270,6 +270,7 @@ local function doOverdetailedEventsGolden()
 
 	_G.overdetailedEventsGolden = {}
 
+	---@diagnostic disable-next-line: duplicate-set-field
 	function overdetailedEventsGolden.getTheme(name)
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"
@@ -287,7 +288,8 @@ local function doOverdetailedEventsGolden()
 		)
 	end
 
-	function overdetailedEventsGolden.updateSprites() -- global function to link all sprites with the current user  settings
+	---@diagnostic disable-next-line: duplicate-set-field
+	function overdetailedEventsGolden.updateSprites() -- global function to link all sprites with the current user settings
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"
 
@@ -338,7 +340,7 @@ local function doOverdetailedEventsGolden()
 			if not sprites.editor.overdetailed.wontmake[name] then
 				local sprite = updateSprite(name)
 				if type(sprites.editor.overdetailed.original[name]) ~= "function" or sprites.editor.overdetailed.overrideFunction[name] then
-					-- overriding: some events have an UNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite
+					-- overriding: some events have an UNNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite
 					-- if the events have a sprite to be defined for drawing, overwrite it as well
 					Event.editorDraw[name] = sprite
 				elseif not sprites.editor.overdetailed.linkFunction[name] then

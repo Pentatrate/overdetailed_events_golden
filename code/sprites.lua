@@ -27,7 +27,7 @@ local function doOverdetailedEventsGolden(sprites)
 	sprites.editor.overdetailed.misc = {} -- spriteName
 	sprites.editor.overdetailed.notes = {} -- spriteName
 
--- actually effectively gets used in the code
+	-- actually effectively gets used in the code
 	sprites.editor.overdetailed.map = {} -- input name get spriteName
 	-- to determine conflicts when multiple events map to one sprite, irrelevant afterwards
 	sprites.editor.overdetailed.map2 = {} -- input spriteName get names (!)
@@ -46,8 +46,8 @@ local function doOverdetailedEventsGolden(sprites)
 		"The normal overdetailed sprites",
 		"Overdetailed dark mode, these look cool ngl", -- flechadafoxy, jan 2nd, 2026
 		"Poorly drawn events, play song is a speaker\nWorks best with original fallback", -- flechadafoxy, jan 28th, 2026
-		"Sets the generic event to a blank sprite\nWorks best with no fallback",
-		"Blank but dark\nWorks best with no fallback"
+		"Adds functionality to specific event sprites\nWorks best with the overdetailed theme as fallback",
+		"Adds functionality to specific event sprites but dark\nWorks best with the dark theme as fallback"
 	}
 	sprites.editor.overdetailed.complete = { -- whether the mod should complain if a theme doesnt have a sprite for all events, eg whether the theme is complete
 		false,
@@ -58,14 +58,16 @@ local function doOverdetailedEventsGolden(sprites)
 		false
 	}
 
-	-- linking: some events have an UNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite (see code/GameManager.lua)
+	-- linking: some events have an UNNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite (see code/GameManager.lua)
 	sprites.editor.overdetailed.overrideFunction = { -- name = spriteName
 		extraTap = "extratap",
-		comment = "comment"
+		comment = "comment",
+		advancetextdeco = "advancetextdeco",
+		textdeco = "textdeco",
+		bookmark = "bookmark"
 	}
-	-- linking: some events have an UNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually define the links but keep the functions (see below)
+	-- linking: some events have a NECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually define the links but keep the functions (see below)
 	sprites.editor.overdetailed.linkFunction = { -- name = spriteName
-		bookmark = "bookmark",
 		trace = "trace"
 	}
 	sprites.editor.overdetailed.wontmake = { -- spriteName and name
@@ -116,7 +118,7 @@ local function doOverdetailedEventsGolden(sprites)
 		end
 	end
 
-	-- linking: some events have an UNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually define the links but keep the functions
+	-- linking: some events have a NECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually define the links but keep the functions
 	for name, spriteName in pairs(sprites.editor.overdetailed.linkFunction) do
 		if sprites.editor.overdetailed.map2[spriteName] then
 			table.insert(sprites.editor.overdetailed.map2[spriteName], name)

@@ -338,12 +338,14 @@ local function doOverdetailedEventsGolden()
 		-- loop through all events, linking their sprites
 		for name, v in pairs(Event.info) do
 			if not sprites.editor.overdetailed.wontmake[name] then
-				local sprite = updateSprite(name)
-				if type(sprites.editor.overdetailed.original[name]) ~= "function" or sprites.editor.overdetailed.overrideFunction[name] then
+				local sprite = updateSprite(name) -- replace sprite
+				if sprites.editor.overdetailed.linkFunction[name] then
+					-- dont replace drawing function
+				elseif type(sprites.editor.overdetailed.original[name]) ~= "function" or sprites.editor.overdetailed.overrideFunction[name] then
 					-- overriding: some events have an UNNECESSARY function to draw themselves, the automatic system cannot link them to their sprites properly, so we manually OVERRIDE the function with the sprite
 					-- if the events have a sprite to be defined for drawing, overwrite it as well
 					Event.editorDraw[name] = sprite
-				elseif not sprites.editor.overdetailed.linkFunction[name] then
+				else
 					print("[overdetailed_events_golden]\t\tFAILED TO LINK EVENT " .. name)
 				end
 			end

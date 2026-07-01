@@ -1,5 +1,4 @@
 {
-	"enabled": true,
 	"config": {
 		"theme": "overdetailed",
 		"fallback": "overdetailed",
@@ -7,7 +6,7 @@
 		"previewSize": 2
 	},
 	"id": "overdetailed_events_golden",
-	"version": "5.1.3",
+	"version": "5.1.4",
 	"author": "Random22 & Flecha Da Foxy & Pentatrate",
 	"description": "Adds a bit more *golden* flair to events in the editor.",
 	"name": "Overdetailed Events Golden"

@@ -80,6 +80,10 @@ local function doOverdetailedEventsGolden(sprites)
 		mineholdparticle = true,
 		beaticon = true,
 		mineholdparticle2 = true,
+		keygencreatewindow = true, -- i really dont know why the devs added these unused sprites
+		keygenmodifywindow = true,
+		keygensetcanvas = true,
+
 		-- name
 		block = true,
 		bounce = true,

@@ -183,6 +183,16 @@ local function doOverdetailedEventsGolden()
 					break
 				end
 			end
+			-- try to choose the event with the same name as the spriteName without capitalization
+			if not mapped then
+				for _, name in ipairs(names) do
+					if name:lower() == spriteName:lower() then
+						sprites.editor.overdetailed.map[name] = spriteName
+						mapped = true
+						break
+					end
+				end
+			end
 			if not mapped then
 				print("[overdetailed_events_golden]\t\tEVENT CONFLICT MAPPING TO SPRITE: " .. spriteName .. " " .. table.concat(names, ", "))
 			end

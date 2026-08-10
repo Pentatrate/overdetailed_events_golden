@@ -279,8 +279,6 @@ local function doOverdetailedEventsGolden()
 	end
 
 	_G.overdetailedEventsGolden = {}
-
-	---@diagnostic disable-next-line: duplicate-set-field
 	function overdetailedEventsGolden.getTheme(name)
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"
@@ -297,8 +295,6 @@ local function doOverdetailedEventsGolden()
 			"original"
 		)
 	end
-
-	---@diagnostic disable-next-line: duplicate-set-field
 	function overdetailedEventsGolden.updateSprites() -- global function to link all sprites with the current user settings
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"

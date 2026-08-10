@@ -38,6 +38,14 @@ payload = "doOverdetailedEventsGolden(v, info, editorDraw)"
 position = "before"
 target = "obj/GameManager.lua"
 
+[[patches]]
+[patches.pattern]
+match_indent = true
+pattern = "function GameManager:initialize(params)"
+payload = "doOverdetailedEventsGolden2() -- for compat with events introduced in \"custom-events-api\" by redsti"
+position = "before"
+target = "obj/GameManager.lua"
+
 # Set sprites according to configs ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 [[patches]]
 [patches.copy]

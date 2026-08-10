@@ -91,7 +91,8 @@ local function doOverdetailedEventsGolden(sprites)
 		inverse = true,
 		mine = true,
 		mineHold = true,
-		side = true
+		side = true,
+		["inverse-holds:inverseHold"] = true
 	}
 
 	-- mapping: create a table for each ingame sprite

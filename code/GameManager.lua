@@ -1,12 +1,20 @@
 ---@diagnostic disable-next-line: unused-function
-local function doOverdetailedEventsGolden(filePath, info, editorDraw)
+local function doOverdetailedEventsGolden(filePath, info, editorDraw, customCategory) -- conf is a custom var in \"custom-events-api\" by redsti
 	-- find the category using the filepath parent folders
-	local category = ""
-	filePath = filePath:lower()
-	local index = filePath:find("/events/") or (1 - #"/events/")
-	filePath = filePath:sub(index + #"/events/")
-	if filePath:sub(1, 1) == "/" then filePath = filePath:sub(2) end -- custom events have a double / in them
-	category = filePath:sub(1, #filePath - (filePath:reverse():find("/") or 0))
+	local category = customCategory or ""
+	if not customCategory then
+		filePath = filePath:lower()
+		local index = filePath:find("/events/") or (1 - #"/events/")
+		filePath = filePath:sub(index + #"/events/")
+		if filePath:sub(1, 1) == "/" then filePath = filePath:sub(2) end -- custom events have a double / in them
+		category = filePath:sub(1, #filePath - (filePath:reverse():find("/") or 0))
+	elseif customCategory == true then
+		category = "a"
+	end
+
+	if customCategory then
+		log("[overdetailed_events_golden]\t\tModded: " .. utilitools.string.concat(info.event, category, filePath))
+	end
 
 	-- do not redefine events, as some mods choose to do so as a shortcut (custom events are loaded after official ones)
 	if not sprites.editor.overdetailed.category[info.event] and not sprites.editor.overdetailed.wontmake[info.event] then
@@ -40,6 +48,16 @@ local function doOverdetailedEventsGolden(filePath, info, editorDraw)
 			sprites.editor.overdetailed.original[info.event] = editorDraw
 		elseif editorDraw and not sprites.editor.overdetailed.linkFunction[info.event] and not sprites.editor.overdetailed.overrideFunction[info.event] then
 			print("[overdetailed_events_golden]\t\tUNABLE TO LINK SPRITE TO EVENT " .. info.event)
+		end
+	end
+end
+---@diagnostic disable-next-line: unused-function
+local function doOverdetailedEventsGolden2()
+	if customEvents then
+		for name, eventConfig in pairs(customEvents.eventConfigs) do
+			if not sprites.editor.overdetailed.category[name] and not sprites.editor.overdetailed.wontmake[name] then
+				doOverdetailedEventsGolden(nil, Event.info[name], Event.editorDraw[name], eventConfig.palette and eventConfig.palette[1] or true)
+			end
 		end
 	end
 end

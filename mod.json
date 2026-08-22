@@ -1,13 +1,13 @@
 {
+	"id": "overdetailed_events_golden",
+	"name": "Overdetailed Events Golden",
+	"description": "Adds a bit more *golden* flair to events in the editor.",
+	"author": "Random22 & Flecha Da Foxy & Pentatrate",
+	"version": "5.1.7",
 	"config": {
 		"theme": "overdetailed",
 		"fallback": "overdetailed",
 		"individual": [],
 		"previewSize": 2
-	},
-	"id": "overdetailed_events_golden",
-	"version": "5.1.6",
-	"author": "Random22 & Flecha Da Foxy & Pentatrate",
-	"description": "Adds a bit more *golden* flair to events in the editor.",
-	"name": "Overdetailed Events Golden"
+	}
 }

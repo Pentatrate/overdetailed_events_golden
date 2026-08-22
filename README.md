@@ -1,7 +1,12 @@
 # Overdetailed Events Golden
 
-(EA Mod)
+EA Mod for the game Beatblock
+
 by Random22 & Flecha Da Foxy & Pentatrate
+
+![GitHub Downloads](https://img.shields.io/github/downloads/Pentatrate/overdetailed_events_golden/total)
+![Commit Activity](https://img.shields.io/github/commit-activity/w/Pentatrate/overdetailed_events_golden)
+![Commits Since Release](https://img.shields.io/github/commits-since/Pentatrate/overdetailed_events_golden/latest)
 
 ## Info
 
@@ -13,13 +18,13 @@ It has a dedicated post named `Overdetailed Events Golden` in the `ea-mods` foru
 ## How to install
 
 1. Download zip:
-	Either directly download the repository as a zip
+	Either directly download the repository as a zip (**I recommend this**)
 
-	Then rename the mod folder to `overdetailed_events_golden`
+	[Download link](https://github.com/Pentatrate/overdetailed_events_golden/archive/refs/heads/main.zip)
 
-	![Screenshot downloading as zip](https://github.com/user-attachments/assets/0653e3ef-cfe0-4b41-825f-a7e786feda4d)
+	or download the "latest" release (The latest release may not have features added in later commits)
 
-	or download the "latest" release (The latest release may not have features added in later commits) (**I recommend this**)
+	![Commits Since Release](https://img.shields.io/github/commits-since/Pentatrate/overdetailed_events_golden/latest)
 
 	![Screenshot to find releases](https://github.com/user-attachments/assets/2acbead3-fad3-476b-9525-43fb1d728cb6)
 

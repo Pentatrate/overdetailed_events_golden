@@ -29,7 +29,7 @@ imguiHelpers.getWidth = function(label)
 	if label == nil or imguiHelpers.visibleLabel(label):len() == 0 then
 		return -1 ^ -9
 	else
-		return -imgui.GetFontSize() * 7 / 13 * imguiHelpers.visibleLabel(label):len() - imgui.GetStyle().ItemInnerSpacing.x
+		return -imgui.CalcTextSize(label, nil, true, nil).x - imgui.GetStyle().ItemInnerSpacing.x
 	end
 end
 imguiHelpers.setWidth = function(label)
@@ -98,7 +98,7 @@ end
 -- the `selected` sprite is larger than the rest, so have handle the first row differently
 local imageSize = 16 * mod.config.previewSize
 local first = true
-local width = imageSize + (imgui.GetStyle().ItemSpacing.x + imgui.GetStyle().FramePadding.x * 2) * (justShow and 1 or 2) + (justShow and 0 or #"overdetailed" * imgui.GetFontSize() * 7 / 13)
+local width = imageSize + (imgui.GetStyle().ItemSpacing.x + imgui.GetStyle().FramePadding.x * 2) * (justShow and 1 or 2) + (justShow and 0 or imgui.CalcTextSize("overdetailed", nil, false, nil).x)
 local maxSpace = imgui.GetContentRegionAvail().x + imgui.GetStyle().ItemSpacing.x
 local maxCount = math.floor((maxSpace - (22 - 16) * mod.config.previewSize) / width)
 local count = 1

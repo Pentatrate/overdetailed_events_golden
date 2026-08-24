@@ -5,7 +5,7 @@ EA Mod for the game Beatblock
 by Random22 & Flecha Da Foxy & Pentatrate
 
 ![GitHub Downloads](https://img.shields.io/github/downloads/Pentatrate/overdetailed_events_golden/total)
-![Commit Activity](https://img.shields.io/github/commit-activity/w/Pentatrate/overdetailed_events_golden)
+![Commit Activity](https://img.shields.io/github/commit-activity/m/Pentatrate/overdetailed_events_golden)
 ![Commits Since Release](https://img.shields.io/github/commits-since/Pentatrate/overdetailed_events_golden/latest)
 
 ## Info

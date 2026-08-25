@@ -53,7 +53,7 @@ local function doOverdetailedEventsGolden(filePath, info, editorDraw, customCate
 end
 ---@diagnostic disable-next-line: unused-function
 local function doOverdetailedEventsGolden2()
-	if customEvents then
+	if customEvents and customEvents.eventConfigs then
 		for name, eventConfig in pairs(customEvents.eventConfigs) do
 			if not sprites.editor.overdetailed.category[name] and not sprites.editor.overdetailed.wontmake[name] then
 				doOverdetailedEventsGolden(nil, Event.info[name], Event.editorDraw[name], eventConfig.palette and eventConfig.palette[1] or true)

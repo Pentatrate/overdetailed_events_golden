@@ -1,3 +1,4 @@
+log:defineEnvironment("overdetailed_events_golden", 2, 2)
 ---@diagnostic disable-next-line: unused-function
 local function doOverdetailedEventsGolden(filePath, info, editorDraw, customCategory) -- conf is a custom var in \"custom-events-api\" by redsti
 	-- find the category using the filepath parent folders
@@ -10,10 +11,6 @@ local function doOverdetailedEventsGolden(filePath, info, editorDraw, customCate
 		category = filePath:sub(1, #filePath - (filePath:reverse():find("/") or 0))
 	elseif customCategory == true then
 		category = "a"
-	end
-
-	if customCategory then
-		log("[overdetailed_events_golden]\t\tModded: " .. utilitools.string.concat(info.event, category, filePath))
 	end
 
 	-- do not redefine events, as some mods choose to do so as a shortcut (custom events are loaded after official ones)
@@ -47,7 +44,7 @@ local function doOverdetailedEventsGolden(filePath, info, editorDraw, customCate
 		if type(editorDraw) == "userdata" then
 			sprites.editor.overdetailed.original[info.event] = editorDraw
 		elseif editorDraw and not sprites.editor.overdetailed.linkFunction[info.event] and not sprites.editor.overdetailed.overrideFunction[info.event] then
-			print("[overdetailed_events_golden]\t\tUNABLE TO LINK SPRITE TO EVENT " .. info.event)
+			log("\t\tUNABLE TO LINK SPRITE TO EVENT " .. info.event, "overdetailed_events_golden")
 		end
 	end
 end

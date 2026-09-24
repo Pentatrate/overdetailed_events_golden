@@ -1,17 +1,18 @@
 ---@diagnostic disable-next-line: unused-function
 local function doOverdetailedEventsGolden()
 	if overdetailedEventsGolden then return end
+	log:defineEnvironment("overdetailed_events_golden", 2, 2)
 
 	--[[ Rename sprite files to match the new naming system
 	for _, theme in ipairs(sprites.editor.overdetailed.themes) do
 		if theme ~= "original" then
-			print("[overdetailed_events_golden]\t" .. theme)
+			log("\t" .. theme, "overdetailed_events_golden")
 			local path = "Mods/overdetailed_events_golden/assets/textures/editor/overdetailed/" .. theme
 			for _, v in ipairs(love.filesystem.getDirectoryItems(path)) do
-				print("[overdetailed_events_golden]\t\t" .. v:sub(1, -5) .. " " .. tostring(not sprites.editor.overdetailed.category[v:sub(1, -5)]))
+				log("\t\t" .. v:sub(1, -5) .. " " .. tostring(not sprites.editor.overdetailed.category[v:sub(1, -5)]), "overdetailed_events_golden")
 				if not sprites.editor.overdetailed.category[v:sub(1, -5)] then
 					local fPath = path .. "/" .. v
-					print("[overdetailed_events_golden]\t\tCANNOT FIND CASE EXACT " .. fPath)
+					log("\t\tCANNOT FIND CASE EXACT " .. fPath, "overdetailed_events_golden")
 					local name
 					for k, _ in pairs(sprites.editor.overdetailed.category) do
 						if k:lower() == v:sub(1, -5):lower() then
@@ -20,19 +21,19 @@ local function doOverdetailedEventsGolden()
 						end
 					end
 					if name then
-						print("[overdetailed_events_golden]\t\tCHANGING " .. fPath .. " TO " .. name)
+						log("\t\tCHANGING " .. fPath .. " TO " .. name, "overdetailed_events_golden")
 						if love.filesystem.getInfo(fPath, "file") then
 							local file = love.filesystem.read(fPath)
 							if love.filesystem.remove(fPath) then
 								local success, error = love.filesystem.write(path .. "/" .. name .. ".png", file)
-								if not success then print("[overdetailed_events_golden]\t\t" .. error) end
-								print("[overdetailed_events_golden]\t\tSUCCESS CHANGING " .. fPath .. " TO " .. name)
+								if not success then log("\t\t" .. error, "overdetailed_events_golden") end
+								log("\t\tSUCCESS CHANGING " .. fPath .. " TO " .. name, "overdetailed_events_golden")
 							else
-								print("[overdetailed_events_golden]\t\tERROR REMOVING " .. fPath)
+								log("\t\tERROR REMOVING " .. fPath, "overdetailed_events_golden")
 							end
 						end
 					else
-						print("[overdetailed_events_golden]\t\tFAILED")
+						log("\t\tFAILED", "overdetailed_events_golden")
 					end
 				end
 			end
@@ -46,7 +47,7 @@ local function doOverdetailedEventsGolden()
 	-- love.graphics.rectangle("fill", pos[1] - 8, pos[2] - 8, 16, 16)
 
 	local function drawText(pos, text, x, y)
-		love.graphics.printf(text, pos[1], pos[2], 32, "center", nil, nil, nil, 15 + (x or 0), 5 + (y or 0))
+		love.graphics.logf(text, pos[1], pos[2], 32, "center", nil, nil, nil, 15 + (x or 0), 5 + (y or 0))
 	end
 	local function drawSprite(event, dark, pos, index, override, overrideTheme)
 		love.graphics.draw(sprites.editor.overdetailed[overrideTheme or ("technical" .. (dark and "dark" or ""))][override or ((index or "icon") .. "_" .. event.type)] or  sprites.editor.overdetailed.original.genericevent, pos[1], pos[2], 0, 1, 1, 8, 8)
@@ -170,7 +171,7 @@ local function doOverdetailedEventsGolden()
 	-- finish mapping
 	for spriteName, names in pairs(sprites.editor.overdetailed.map2) do -- mapping: expect only one event mapped to each sprite
 		if #names == 0 then
-			print("[overdetailed_events_golden]\t\tNO EVENT MAPPED TO SPRITE " .. spriteName)
+			log("\t\tNO EVENT MAPPED TO SPRITE " .. spriteName, "overdetailed_events_golden")
 		elseif #names == 1 then
 			sprites.editor.overdetailed.map[names[1]] = spriteName
 		else
@@ -194,7 +195,7 @@ local function doOverdetailedEventsGolden()
 				end
 			end
 			if not mapped then
-				print("[overdetailed_events_golden]\t\tEVENT CONFLICT MAPPING TO SPRITE: " .. spriteName .. " " .. table.concat(names, ", "))
+				log("\t\tEVENT CONFLICT MAPPING TO SPRITE: " .. spriteName .. " " .. table.concat(names, ", "), "overdetailed_events_golden")
 			end
 		end
 	end
@@ -219,7 +220,7 @@ local function doOverdetailedEventsGolden()
 							end
 						end
 					end
-					print("[overdetailed_events_golden]\t\tUNUSED " .. theme .. " SPRITE " .. name .. (maybe and ". DID YOU MISNAME " .. maybe .. "?" or ""))
+					log("\t\tUNUSED " .. theme .. " SPRITE " .. name .. (maybe and ". DID YOU MISNAME " .. maybe .. "?" or ""), "overdetailed_events_golden")
 				end
 
 				local index = name:find("_")
@@ -261,12 +262,12 @@ local function doOverdetailedEventsGolden()
 			if sprites.editor.overdetailed.complete[i] then
 				for name, _ in pairs(sprites.editor.overdetailed.category) do -- check for a missing overdetailed sprites for an event
 					if not sprites.editor.overdetailed[theme][name] and not sprites.editor.overdetailed.wontmake[name] then
-						print("[overdetailed_events_golden]\t\tNO " .. theme .. " SPRITE FOR EVENT " .. name)
+						log("\t\tNO " .. theme .. " SPRITE FOR EVENT " .. name, "overdetailed_events_golden")
 					end
 				end
 				for name, _ in pairs(sprites.editor.overdetailed.original) do -- check for a missing overdetailed sprite for an original sprite
 					if not sprites.editor.overdetailed[theme][name] and not sprites.editor.overdetailed.wontmake[name] then
-						print("[overdetailed_events_golden]\t\tNO " .. theme .. " SPRITE FOR SPRITE " .. name)
+						log("\t\tNO " .. theme .. " SPRITE FOR SPRITE " .. name, "overdetailed_events_golden")
 					end
 				end
 			end
@@ -274,11 +275,12 @@ local function doOverdetailedEventsGolden()
 	end
 	for name, _ in pairs(sprites.editor.overdetailed.linkFunction) do -- check for unnecessary manual linking that is already done automatically
 		if type(Event.editorDraw[name]) ~= "function" then
-			print("[overdetailed_events_golden]\t\tNO NEED TO LINK MANUALLY " .. name)
+			log("\t\tNO NEED TO LINK MANUALLY " .. name, "overdetailed_events_golden")
 		end
 	end
 
 	_G.overdetailedEventsGolden = {}
+	---@diagnostic disable-next-line: duplicate-set-field
 	function overdetailedEventsGolden.getTheme(name)
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"
@@ -295,6 +297,7 @@ local function doOverdetailedEventsGolden()
 			"original"
 		)
 	end
+	---@diagnostic disable-next-line: duplicate-set-field
 	function overdetailedEventsGolden.updateSprites() -- global function to link all sprites with the current user settings
 		local globalSwitch = mods.overdetailed_events_golden.config.theme or "overdetailed"
 		local fallback = mods.overdetailed_events_golden.config.fallback or "overdetailed"
@@ -352,7 +355,7 @@ local function doOverdetailedEventsGolden()
 					-- if the events have a sprite to be defined for drawing, overwrite it as well
 					Event.editorDraw[name] = sprite
 				else
-					print("[overdetailed_events_golden]\t\tFAILED TO LINK EVENT " .. name)
+					log("\t\tFAILED TO LINK EVENT " .. name, "overdetailed_events_golden")
 				end
 			end
 		end
@@ -375,5 +378,5 @@ local function doOverdetailedEventsGolden()
 	end)
 
 	overdetailedEventsGolden.updateSprites()
-	-- print("[overdetailed_events_golden]\nEvents (" .. #sprites.editor.overdetailed.sortedEvents .. "):\n" .. table.concat(sprites.editor.overdetailed.sortedEvents, ", "))
+	-- log("\nEvents (" .. #sprites.editor.overdetailed.sortedEvents .. "):\n" .. table.concat(sprites.editor.overdetailed.sortedEvents, ", "), "overdetailed_events_golden")
 end

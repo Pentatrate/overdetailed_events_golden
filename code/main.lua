@@ -47,7 +47,7 @@ local function doOverdetailedEventsGolden()
 	-- love.graphics.rectangle("fill", pos[1] - 8, pos[2] - 8, 16, 16)
 
 	local function drawText(pos, text, x, y)
-		love.graphics.logf(text, pos[1], pos[2], 32, "center", nil, nil, nil, 15 + (x or 0), 5 + (y or 0))
+		love.graphics.printf(text, pos[1], pos[2], 32, "center", nil, nil, nil, 15 + (x or 0), 5 + (y or 0))
 	end
 	local function drawSprite(event, dark, pos, index, override, overrideTheme)
 		love.graphics.draw(sprites.editor.overdetailed[overrideTheme or ("technical" .. (dark and "dark" or ""))][override or ((index or "icon") .. "_" .. event.type)] or  sprites.editor.overdetailed.original.genericevent, pos[1], pos[2], 0, 1, 1, 8, 8)

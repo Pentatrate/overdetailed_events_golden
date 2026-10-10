@@ -202,11 +202,9 @@ local function doOverdetailedEventsGolden()
 	-- check for invalid, unused data
 	for i, theme in ipairs(sprites.editor.overdetailed.themes) do
 		if theme ~= "original" then
-			---@diagnostic disable-next-line: unused-function
 			local function checkSpriteUnused(name)
 				if sprites.editor.overdetailed.category[name] then return end
 
-				---@diagnostic disable-next-line: unused-function
 				local function spriteWarn()
 					local maybe
 					if sprites.editor.overdetailed.map2[name] and #sprites.editor.overdetailed.map2[name] == 1 then
@@ -260,15 +258,35 @@ local function doOverdetailedEventsGolden()
 				checkSpriteUnused(name)
 			end
 			if sprites.editor.overdetailed.complete[i] then
-				for name, _ in pairs(sprites.editor.overdetailed.category) do -- check for a missing overdetailed sprites for an event
-					if not sprites.editor.overdetailed[theme][name] and not sprites.editor.overdetailed.wontmake[name] then
-						log("\t\tNO " .. theme .. " SPRITE FOR EVENT " .. name, "overdetailed_events_golden")
-					end
+				local keysToValues = function(t) -- utilitools code
+					local r = {}
+					for k, _ in pairs(t) do table.insert(r, k) end
+					return r
 				end
+				local eventsUnmatched, spritesUnmatched = {}, {}
 				for name, _ in pairs(sprites.editor.overdetailed.original) do -- check for a missing overdetailed sprite for an original sprite
 					if not sprites.editor.overdetailed[theme][name] and not sprites.editor.overdetailed.wontmake[name] then
-						log("\t\tNO " .. theme .. " SPRITE FOR SPRITE " .. name, "overdetailed_events_golden")
+						spritesUnmatched[name] = true
+						-- log("\t\tNO " .. theme .. " SPRITE FOR SPRITE " .. name, "overdetailed_events_golden")
 					end
+				end
+				for name, _ in pairs(sprites.editor.overdetailed.category) do -- check for a missing overdetailed sprites for an event
+					if not sprites.editor.overdetailed[theme][name] and not sprites.editor.overdetailed.wontmake[name] then
+						if not spritesUnmatched[name] then
+							eventsUnmatched[name] = true
+						end
+						-- log("\t\tNO " .. theme .. " SPRITE FOR EVENT " .. name, "overdetailed_events_golden")
+					end
+				end
+				spritesUnmatched = keysToValues(spritesUnmatched)
+				table.sort(spritesUnmatched)
+				eventsUnmatched = keysToValues(eventsUnmatched)
+				table.sort(eventsUnmatched)
+				if spritesUnmatched[1] then
+					log("[" .. theme .. "] FOLLOWING EVENTS ARE MISSING MODDED SPRITES:     " .. table.concat(spritesUnmatched, ", "), "overdetailed_events_golden")
+				end
+				if eventsUnmatched[1] then
+					log("[" .. theme .. "] FOLLOWING EVENTS ARE COMPLETELY MISSING SPRITES: " .. table.concat(eventsUnmatched, ", "), "overdetailed_events_golden")
 				end
 			end
 		end
